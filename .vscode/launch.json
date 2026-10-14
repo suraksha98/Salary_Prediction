@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Salary Predictor Web App",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/app.py",
+            "console": "integratedTerminal",
+            "python": "D:\\Users\\Asus Laptop\\anaconda3\\envs\\lux_env\\python.exe"
+        }
+    ]
+}

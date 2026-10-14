@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Job Market Salary Predictor & Analytics | IPEC Solutions</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Top Navigation & Branding Bar -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand-group">
+                <div class="brand-logo-wrap">
+                    <img src="/static/img/logo.jpg" alt="Indian Job Market Logo" class="brand-logo" onerror="this.style.display='none'">
+                    <div class="brand-icon-fallback"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">Indian Job Market Salary Predictor & Analytics</h1>
+                    <div class="brand-meta">
+                        <span class="developer-tag"><i class="fa-solid fa-user-gear"></i> Suraksha, AIML Developer</span>
+                        <span class="company-tag"><i class="fa-solid fa-building"></i> IPEC Solutions PVT LTD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="live-status-pill">
+                    <span class="status-dot"></span>
+                    <span class="status-label">Model: <strong>Random Forest v1.0</strong> (33,118 Jobs)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Navigation Tabs -->
+        <div class="nav-tabs-wrapper">
+            <div class="nav-tabs-container">
+                <button type="button" class="tab-btn active" onclick="switchMainTab('predictor-tab')">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Predictor & Sandbox
+                </button>
+                <button type="button" class="tab-btn" onclick="switchMainTab('comparator-tab')">
+                    <i class="fa-solid fa-code-compare"></i> Dual Offer Comparator
+                </button>
+                <button type="button" class="tab-btn" onclick="switchMainTab('jobs-explorer-tab')">
+                    <i class="fa-solid fa-table-list"></i> 33k Jobs Explorer
+                </button>
+                <button type="button" class="tab-btn" onclick="switchMainTab('analytics-tab')">
+                    <i class="fa-solid fa-chart-line"></i> Market Analytics
+                </button>
+                <button type="button" class="tab-btn" onclick="switchMainTab('model-tab')">
+                    <i class="fa-solid fa-microchip"></i> Model Benchmark
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <!-- ===================================================================
+             TAB 1: AI SALARY PREDICTOR & WHAT-IF STUDIO
+             =================================================================== -->
+        <section id="predictor-tab" class="tab-pane active">
+            <!-- Hero Market Glance -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-brain"></i> Machine Learning Compensation Intelligence
+                    </div>
+                    <h2 class="hero-title">Predict Indian Market CTCs & Net Take-Home Pay</h2>
+                    <p class="hero-subtitle">
+                        Trained on <strong>33,118 verified Indian job postings</strong>. Features real-time multi-city benchmarks, New Tax Regime in-hand take-home breakdown, and what-if sandbox simulations.
+                    </p>
+                    
+                    <div class="hero-stats-row">
+                        <div class="hero-stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-val" id="kpi-total-jobs">33,118</span>
+                                <span class="stat-desc">Analyzed Postings</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-val" id="kpi-mean-salary">₹7.58 LPA</span>
+                                <span class="stat-desc">Market Mean CTC</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-val" id="kpi-median-salary">₹4.25 LPA</span>
+                                <span class="stat-desc">Market Median Base</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-val" id="kpi-p90-salary">₹18.00 LPA</span>
+                                <span class="stat-desc">Top 10% Executive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 12 Categorized Industry Presets -->
+            <div class="preset-accordion-box">
+                <div class="preset-header">
+                    <span><i class="fa-solid fa-bolt-lightning"></i> <strong>1-Click Industry Presets (12 Profiles):</strong> Click any role to instantly pre-fill and simulate:</span>
+                </div>
+                <div class="preset-category-groups">
+                    <div class="preset-cat">
+                        <span class="cat-label"><i class="fa-solid fa-robot"></i> AI & Data:</span>
+                        <div class="cat-buttons">
+                            <button type="button" class="preset-chip" onclick="applyPreset('genai_eng')">🤖 GenAI / LLM Eng</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('data_scientist')">📊 Data Scientist</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('data_engineer')">🛠️ Data Engineer</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('bi_analyst')">📈 BI / Data Analyst</button>
+                        </div>
+                    </div>
+                    <div class="preset-cat">
+                        <span class="cat-label"><i class="fa-solid fa-code"></i> Engineering:</span>
+                        <div class="cat-buttons">
+                            <button type="button" class="preset-chip" onclick="applyPreset('java_dev')">💻 Java Full Stack</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('react_dev')">⚛️ React / Frontend</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('devops')">☁️ DevOps & Cloud</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('cybersecurity')">🛡️ Cybersecurity</button>
+                        </div>
+                    </div>
+                    <div class="preset-cat">
+                        <span class="cat-label"><i class="fa-solid fa-briefcase"></i> Product & Sales:</span>
+                        <div class="cat-buttons">
+                            <button type="button" class="preset-chip" onclick="applyPreset('product_mgr')">💼 Product Manager</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('sales_manager')">🚀 Enterprise Sales</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('biz_dev')">🤝 Business Dev Lead</button>
+                            <button type="button" class="preset-chip" onclick="applyPreset('hr_lead')">👥 HR / Tech Recruiter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predictor Main Grid -->
+            <div class="predictor-grid">
+                <!-- Prediction Form Card -->
+                <div class="card form-card">
+                    <div class="card-title-row">
+                        <h3 class="card-heading"><i class="fa-solid fa-sliders"></i> Role Parameters</h3>
+                        <button type="button" class="btn-text-action" onclick="resetPredictorForm()"><i class="fa-solid fa-arrow-rotate-left"></i> Clear</button>
+                    </div>
+                    
+                    <form id="salary-predict-form" onsubmit="handlePrediction(event)">
+                        <!-- Job Title -->
+                        <div class="form-group">
+                            <label for="job_title">
+                                <span><i class="fa-solid fa-id-badge"></i> Job Title</span>
+                                <span class="required">*</span>
+                            </label>
+                            <input type="text" id="job_title" name="job_title" list="title-suggestions" 
+                                placeholder="e.g. Data Scientist, Java Developer, Product Manager" required 
+                                value="Data Engineer">
+                            <datalist id="title-suggestions"></datalist>
+                        </div>
+
+                        <!-- Technical Skills & Interactive Tag Cloud -->
+                        <div class="form-group">
+                            <label for="skills">
+                                <span><i class="fa-solid fa-tags"></i> Key Skills & Technical Stack</span>
+                                <span class="hint-text">(Click tags below to append)</span>
+                            </label>
+                            <textarea id="skills" name="skills" rows="3" 
+                                placeholder="e.g. Python, SQL, Spark, AWS, ETL, Snowflake">Python, SQL, ETL, Spark, AWS</textarea>
+                            
+                            <!-- Domain Skill Tag Selector -->
+                            <div class="interactive-tag-cloud">
+                                <div class="tag-domain-row">
+                                    <span class="tag-domain-title">🧠 Data & AI:</span>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Python')">+ Python</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Machine Learning')">+ ML</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('SQL')">+ SQL</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Spark')">+ Spark</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Deep Learning')">+ Deep Learning</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Power BI')">+ Power BI</button>
+                                </div>
+                                <div class="tag-domain-row">
+                                    <span class="tag-domain-title">💻 Web & Cloud:</span>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Java')">+ Java</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('AWS')">+ AWS</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('React')">+ React</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Docker')">+ Docker</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Kubernetes')">+ Kubernetes</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Azure')">+ Azure</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Golang')">+ Golang</button>
+                                </div>
+                                <div class="tag-domain-row">
+                                    <span class="tag-domain-title">💼 Business:</span>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Sales')">+ Sales</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('B2B')">+ B2B</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Management')">+ Management</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('CRM')">+ CRM</button>
+                                    <button type="button" class="skill-pill" onclick="appendSkill('Communication')">+ Communication</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location & Work Mode -->
+                        <div class="form-group">
+                            <label for="location">
+                                <span><i class="fa-solid fa-location-dot"></i> Job Location / City</span>
+                                <span class="required">*</span>
+                            </label>
+                            <input type="text" id="location" name="location" list="location-suggestions" 
+                                placeholder="e.g. Bengaluru, Hyderabad, Pune, Gurugram, Remote" required 
+                                value="Bengaluru">
+                            <datalist id="location-suggestions"></datalist>
+                        </div>
+
+                        <!-- Experience Range Sliders -->
+                        <div class="form-row">
+                            <div class="form-group col-half">
+                                <label for="min_exp">
+                                    <span><i class="fa-solid fa-calendar-minus"></i> Min Exp: <strong id="min-exp-val">2</strong> Yrs</span>
+                                </label>
+                                <input type="range" id="min_exp" name="min_exp" min="0" max="30" step="1" value="2" 
+                                    oninput="syncExperienceSliders()">
+                            </div>
+                            <div class="form-group col-half">
+                                <label for="max_exp">
+                                    <span><i class="fa-solid fa-calendar-plus"></i> Max Exp: <strong id="max-exp-val">5</strong> Yrs</span>
+                                </label>
+                                <input type="range" id="max_exp" name="max_exp" min="0" max="30" step="1" value="5" 
+                                    oninput="syncExperienceSliders()">
+                            </div>
+                        </div>
+
+                        <!-- Company Reviews and Rating -->
+                        <div class="form-row">
+                            <div class="form-group col-half">
+                                <label for="reviews_count">
+                                    <span><i class="fa-solid fa-comments"></i> Company Reviews Count</span>
+                                </label>
+                                <input type="number" id="reviews_count" name="reviews_count" min="0" max="500000" value="150">
+                            </div>
+                            <div class="form-group col-half">
+                                <label for="rating">
+                                    <span><i class="fa-solid fa-star"></i> Company Rating: <strong id="rating-val">4.1</strong> ★</span>
+                                </label>
+                                <input type="range" id="rating" name="rating" min="1.0" max="5.0" step="0.1" value="4.1" 
+                                    oninput="document.getElementById('rating-val').innerText = this.value">
+                            </div>
+                        </div>
+
+                        <!-- Interactive What-If Sandbox Toggles -->
+                        <div class="what-if-sandbox">
+                            <span class="sandbox-title"><i class="fa-solid fa-flask-vial"></i> Instant What-If Simulations:</span>
+                            <div class="sandbox-toggles">
+                                <label class="toggle-chip">
+                                    <input type="checkbox" id="whatif-seniority" onchange="applyWhatIfSimulation()">
+                                    <span><i class="fa-solid fa-arrow-up-right-dots"></i> +2 Yrs Seniority Bump</span>
+                                </label>
+                                <label class="toggle-chip">
+                                    <input type="checkbox" id="whatif-bengaluru" onchange="applyWhatIfSimulation()">
+                                    <span><i class="fa-solid fa-city"></i> Shift to Bengaluru Hub</span>
+                                </label>
+                                <label class="toggle-chip">
+                                    <input type="checkbox" id="whatif-cloud" onchange="applyWhatIfSimulation()">
+                                    <span><i class="fa-solid fa-cloud"></i> Add Cloud Specialist (AWS/Azure)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="predict-submit-btn" class="btn btn-primary btn-block">
+                            <span class="btn-text"><i class="fa-solid fa-calculator"></i> Predict Market Salary</span>
+                            <span class="btn-spinner" style="display:none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Calculating Model Inference...</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Prediction Results Card -->
+                <div class="card result-card" id="prediction-result-panel">
+                    <div class="result-header">
+                        <span class="badge-tag"><i class="fa-solid fa-circle-check"></i> ML Inference Output</span>
+                        <span class="badge-tier" id="res-seniority-tier">Mid-Level Professional</span>
+                    </div>
+
+                    <div class="result-hero-box">
+                        <span class="result-sub-label">Estimated Annual Compensation</span>
+                        <div class="salary-main-display">
+                            <h2 class="salary-lpa" id="res-annual-lpa">₹7.27 LPA</h2>
+                            <span class="salary-inr-full" id="res-annual-formatted">(₹7,26,961 / year)</span>
+                        </div>
+                        <div class="salary-monthly-tag">
+                            <i class="fa-solid fa-calendar-check"></i> Approx. In-Hand Equivalent: <strong id="res-monthly-formatted">₹60,580 / month</strong>
+                        </div>
+                    </div>
+
+                    <!-- Range & Benchmark -->
+                    <div class="result-breakdown-grid">
+                        <div class="breakdown-item">
+                            <span class="bd-label">Expected Range (±16%)</span>
+                            <span class="bd-val" id="res-range-bracket">₹6.11 LPA — ₹8.43 LPA</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="bd-label">Market Percentile</span>
+                            <span class="bd-val" id="res-percentile">Top 38% in India</span>
+                        </div>
+                    </div>
+
+                    <!-- Percentile Progress Bar -->
+                    <div class="percentile-progress-wrap">
+                        <div class="progress-labels">
+                            <span>Market Base</span>
+                            <span>Median</span>
+                            <span>Executive 90th</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="res-percentile-fill" style="width: 62%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- New Indian Tax Regime & Take-Home Breakdown -->
+                    <div class="tax-breakdown-card">
+                        <div class="tax-card-header">
+                            <span class="tax-card-title"><i class="fa-solid fa-receipt"></i> Monthly Net In-Hand Breakdown (New Tax Regime)</span>
+                            <span class="tax-badge" id="res-tax-rate">Tax: ~6.0%</span>
+                        </div>
+                        <div class="tax-rows">
+                            <div class="tax-row">
+                                <span>Basic Pay (50%):</span>
+                                <strong id="tax-basic">₹30,290 / mo</strong>
+                            </div>
+                            <div class="tax-row">
+                                <span>House Rent Allowance (20%):</span>
+                                <strong id="tax-hra">₹12,116 / mo</strong>
+                            </div>
+                            <div class="tax-row">
+                                <span>Special Allowance (30%):</span>
+                                <strong id="tax-special">₹18,174 / mo</strong>
+                            </div>
+                            <div class="tax-row text-deduct">
+                                <span>Employee PF Contribution (12%):</span>
+                                <strong id="tax-pf">- ₹3,600 / mo</strong>
+                            </div>
+                            <div class="tax-row text-deduct">
+                                <span>Estimated Income Tax (New Regime):</span>
+                                <strong id="tax-deduct">- ₹0 / mo</strong>
+                            </div>
+                            <div class="tax-row tax-total-row">
+                                <span>Estimated Net Monthly Deposit:</span>
+                                <strong id="tax-net-monthly" class="text-amber">₹60,580 / mo</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Multi-City Benchmark Comparison -->
+                    <div class="city-benchmark-card">
+                        <h4 class="city-bench-title"><i class="fa-solid fa-map-location-dot"></i> Multi-City Market Comparison for this Profile:</h4>
+                        <div class="city-chips-grid" id="city-benchmark-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="result-actions-row">
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="sendToComparator()">
+                            <i class="fa-solid fa-clone"></i> Send to Offer Comparator
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">
+                            <i class="fa-solid fa-print"></i> Print / Save Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             TAB 2: DUAL OFFER & ROLE COMPARATOR
+             =================================================================== -->
+        <section id="comparator-tab" class="tab-pane">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-sub"><i class="fa-solid fa-scale-balanced"></i> Side-by-Side Analysis</span>
+                    <h2 class="section-title">Dual Offer & Profile Comparator</h2>
+                    <p class="section-desc">Evaluate two job offers or career paths side-by-side to compare compensation, take-home variance, and market standing.</p>
+                </div>
+            </div>
+
+            <div class="comparator-grid">
+                <!-- Offer A Box -->
+                <div class="card comparator-card">
+                    <div class="comp-card-badge"><i class="fa-solid fa-certificate"></i> Offer A / Profile 1</div>
+                    <form id="offer-a-form">
+                        <div class="form-group">
+                            <label>Role Title:</label>
+                            <input type="text" id="comp-title-a" value="Software Engineer" placeholder="e.g. SDE 2">
+                        </div>
+                        <div class="form-group">
+                            <label>Skills / Tech Stack:</label>
+                            <input type="text" id="comp-skills-a" value="Java, Spring Boot, Microservices, SQL" placeholder="Skills">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-half">
+                                <label>Location:</label>
+                                <input type="text" id="comp-loc-a" value="Bengaluru" list="location-suggestions">
+                            </div>
+                            <div class="form-group col-half">
+                                <label>Experience (Yrs):</label>
+                                <input type="number" id="comp-exp-a" value="4" min="0" max="30">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="comp-result-box" id="comp-res-a">
+                        <span class="comp-sal-label">Estimated CTC:</span>
+                        <h3 class="comp-sal-lpa" id="comp-lpa-a">₹10.50 LPA</h3>
+                        <span class="comp-sal-monthly" id="comp-monthly-a">Take-Home: ₹79,200 / mo</span>
+                    </div>
+                </div>
+
+                <!-- Central Compare Action & Verdict -->
+                <div class="comparator-action-col">
+                    <button type="button" class="btn btn-primary comp-eval-btn" onclick="runDualComparison()">
+                        <i class="fa-solid fa-bolt"></i> Compare Offers
+                    </button>
+                    <div class="comp-verdict-card" id="comp-verdict-box" style="display:none;">
+                        <span class="verdict-tag" id="verdict-winner">Offer A Wins</span>
+                        <h4 class="verdict-diff" id="verdict-diff-val">+₹2.40 LPA</h4>
+                        <span class="verdict-desc" id="verdict-diff-pct">22.8% Higher Annual Package</span>
+                    </div>
+                </div>
+
+                <!-- Offer B Box -->
+                <div class="card comparator-card">
+                    <div class="comp-card-badge comp-badge-alt"><i class="fa-solid fa-certificate"></i> Offer B / Profile 2</div>
+                    <form id="offer-b-form">
+                        <div class="form-group">
+                            <label>Role Title:</label>
+                            <input type="text" id="comp-title-b" value="Data Scientist" placeholder="e.g. Lead Analyst">
+                        </div>
+                        <div class="form-group">
+                            <label>Skills / Tech Stack:</label>
+                            <input type="text" id="comp-skills-b" value="Python, Machine Learning, AWS, SQL" placeholder="Skills">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-half">
+                                <label>Location:</label>
+                                <input type="text" id="comp-loc-b" value="Hyderabad" list="location-suggestions">
+                            </div>
+                            <div class="form-group col-half">
+                                <label>Experience (Yrs):</label>
+                                <input type="number" id="comp-exp-b" value="4" min="0" max="30">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="comp-result-box" id="comp-res-b">
+                        <span class="comp-sal-label">Estimated CTC:</span>
+                        <h3 class="comp-sal-lpa" id="comp-lpa-b">₹12.90 LPA</h3>
+                        <span class="comp-sal-monthly" id="comp-monthly-b">Take-Home: ₹96,400 / mo</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             TAB 3: 33,000+ LIVE JOB MARKET DATABASE EXPLORER
+             =================================================================== -->
+        <section id="jobs-explorer-tab" class="tab-pane">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-sub"><i class="fa-solid fa-database"></i> Real Dataset Browser</span>
+                    <h2 class="section-title">Verified Indian Job Postings Database</h2>
+                    <p class="section-desc">Search through real job postings from the cleaned dataset. Click <strong>"Simulate in Predictor"</strong> on any listing to pre-fill the AI form instantly.</p>
+                </div>
+
+                <!-- Database Search Bar -->
+                <div class="db-search-bar">
+                    <div class="search-input-wrap">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="job-search-input" placeholder="Search by role, skills, or company (e.g. Data Scientist, Python, Infosys, AWS)..." 
+                            onkeyup="handleJobSearchKeyup(event)">
+                    </div>
+                    <div class="search-filter-wrap">
+                        <select id="job-search-city" onchange="fetchSampleJobs(1)">
+                            <option value="All">All Cities</option>
+                            <option value="Bengaluru">Bengaluru</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Gurugram">Gurugram</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Noida">Noida</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Remote">Remote</option>
+                        </select>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="fetchSampleJobs(1)">
+                            <i class="fa-solid fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jobs Table -->
+            <div class="card table-card">
+                <div class="table-responsive">
+                    <table class="jobs-table">
+                        <thead>
+                            <tr>
+                                <th>Role & Company</th>
+                                <th>Location</th>
+                                <th>Experience</th>
+                                <th>Disclosed Package</th>
+                                <th>Benchmark Median</th>
+                                <th>Skills & Rating</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobs-table-body">
+                            <tr>
+                                <td colspan="7" class="text-center py-4">Loading verified jobs...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="db-pagination">
+                    <span class="pag-count" id="jobs-count-text">Showing 1-12 of 33,118 jobs</span>
+                    <div class="pag-buttons">
+                        <button type="button" class="btn btn-secondary btn-sm" id="btn-prev-page" onclick="changeJobsPage(-1)">
+                            <i class="fa-solid fa-chevron-left"></i> Previous
+                        </button>
+                        <span class="pag-page-num" id="current-page-num">Page 1</span>
+                        <button type="button" class="btn btn-secondary btn-sm" id="btn-next-page" onclick="changeJobsPage(1)">
+                            Next <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             TAB 4: MARKET ANALYTICS (PLOTLY CHARTS)
+             =================================================================== -->
+        <section id="analytics-tab" class="tab-pane">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-sub"><i class="fa-solid fa-chart-pie"></i> Verified Dataset Insights</span>
+                    <h2 class="section-title">Indian Job Market Analytics Dashboard</h2>
+                    <p class="section-desc">Interactive distributions, geographic comparisons, experience curves, and skill premium benchmarks.</p>
+                </div>
+
+                <!-- Interactive Filters -->
+                <div class="analytics-filter-bar">
+                    <div class="filter-item">
+                        <label for="filter-location"><i class="fa-solid fa-city"></i> City / Region:</label>
+                        <select id="filter-location" onchange="applyAnalyticsFilters()">
+                            <option value="All">All Locations (National)</option>
+                            <option value="Bengaluru">Bengaluru</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Gurugram">Gurugram / NCR</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Noida">Noida</option>
+                            <option value="Mumbai">Mumbai / Navi Mumbai</option>
+                            <option value="Remote">Remote</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label for="filter-exp"><i class="fa-solid fa-user-clock"></i> Experience Bracket:</label>
+                        <select id="filter-exp" onchange="applyAnalyticsFilters()">
+                            <option value="All">All Experience Tiers</option>
+                            <option value="Fresher (0-2 Yrs)">Fresher (0 - 2 Yrs)</option>
+                            <option value="Mid-Level (3-6 Yrs)">Mid-Level (3 - 6 Yrs)</option>
+                            <option value="Senior (7-12 Yrs)">Senior (7 - 12 Yrs)</option>
+                            <option value="Lead / Exec (12+ Yrs)">Lead / Executive (12+ Yrs)</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary filter-reset-btn" onclick="resetAnalyticsFilters()">
+                        <i class="fa-solid fa-rotate-left"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <!-- Chart 1: Salary Distribution -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title"><i class="fa-solid fa-chart-column"></i> Annual Salary Distribution (LPA)</h3>
+                        <span class="chart-badge">Density Histogram</span>
+                    </div>
+                    <div id="chart-salary-dist" class="plotly-chart-container"></div>
+                </div>
+
+                <!-- Chart 2: Top Paying Roles -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title"><i class="fa-solid fa-ranking-star"></i> Top 15 Roles by Median Compensation</h3>
+                        <span class="chart-badge">Median Annual CTC (₹ Lakhs)</span>
+                    </div>
+                    <div id="chart-top-roles" class="plotly-chart-container"></div>
+                </div>
+
+                <!-- Chart 3: Tech Hub Comparison -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title"><i class="fa-solid fa-map-location-dot"></i> Tech Hubs: Volume vs Median CTC</h3>
+                        <span class="chart-badge">Bengaluru, Hyderabad, NCR, Pune...</span>
+                    </div>
+                    <div id="chart-tech-hubs" class="plotly-chart-container"></div>
+                </div>
+
+                <!-- Chart 4: Experience Trajectory -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title"><i class="fa-solid fa-arrow-trend-up"></i> Experience vs Salary Progression</h3>
+                        <span class="chart-badge">0 to 20 Years Growth Curve</span>
+                    </div>
+                    <div id="chart-experience-curve" class="plotly-chart-container"></div>
+                </div>
+
+                <!-- Chart 5: High-Value Tech Skills -->
+                <div class="chart-card chart-card-wide">
+                    <div class="chart-header">
+                        <h3 class="chart-title"><i class="fa-solid fa-cubes-stacked"></i> High-Impact Tech Skills & Compensation Benchmark</h3>
+                        <span class="chart-badge">Median CTC for Listings Requiring Key Skills</span>
+                    </div>
+                    <div id="chart-tech-skills" class="plotly-chart-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             TAB 5: MODEL TRANSPARENCY & BENCHMARK
+             =================================================================== -->
+        <section id="model-tab" class="tab-pane">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-sub"><i class="fa-solid fa-microchip"></i> Transparency & Methodology</span>
+                    <h2 class="section-title">Model Specifications & Evaluation Benchmark</h2>
+                    <p class="section-desc">Comparison metrics from the model evaluation suite and pipeline structure.</p>
+                </div>
+            </div>
+
+            <div class="model-info-grid">
+                <!-- Evaluation Metrics Table -->
+                <div class="card info-card">
+                    <h3 class="card-heading"><i class="fa-solid fa-table-list"></i> Model Comparison (Test Set)</h3>
+                    <p class="card-intro">Evaluated on a 20% holdout test dataset with log-transformed salary targets.</p>
+                    
+                    <div class="table-responsive">
+                        <table class="benchmark-table">
+                            <thead>
+                                <tr>
+                                    <th>Model Name</th>
+                                    <th>MAE (₹)</th>
+                                    <th>RMSE (₹)</th>
+                                    <th>R² Score</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="highlight-row">
+                                    <td><strong>Random Forest Regressor</strong></td>
+                                    <td>₹2,89,841</td>
+                                    <td>₹8,05,216</td>
+                                    <td><strong>0.418</strong></td>
+                                    <td><span class="badge-deployed"><i class="fa-solid fa-check"></i> Deployed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ridge Regression</strong></td>
+                                    <td>₹2,95,805</td>
+                                    <td>₹7,84,676</td>
+                                    <td>0.447</td>
+                                    <td><span class="badge-baseline">Baseline</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="card-footnote">
+                        <i class="fa-solid fa-circle-info"></i> The Random Forest model yields superior Mean Absolute Error (₹2.89L), capturing non-linear interactions between skills, city hubs, and seniority.
+                    </div>
+                </div>
+
+                <!-- Pipeline Architecture -->
+                <div class="card info-card">
+                    <h3 class="card-heading"><i class="fa-solid fa-diagram-project"></i> Pipeline Feature Engineering</h3>
+                    
+                    <div class="pipeline-steps">
+                        <div class="pipe-step">
+                            <div class="pipe-icon"><i class="fa-solid fa-file-lines"></i></div>
+                            <div class="pipe-details">
+                                <strong>Text Feature Pipeline (Job Text = Title + Skills)</strong>
+                                <span>TF-IDF Vectorizer with 500 max features, English stop-words, and 1-2 n-grams.</span>
+                            </div>
+                        </div>
+                        <div class="pipe-step">
+                            <div class="pipe-icon"><i class="fa-solid fa-map-pin"></i></div>
+                            <div class="pipe-details">
+                                <strong>Categorical Pipeline (Location)</strong>
+                                <span>Most-frequent imputer with One-Hot Encoding (min_frequency=20 for rare cities).</span>
+                            </div>
+                        </div>
+                        <div class="pipe-step">
+                            <div class="pipe-icon"><i class="fa-solid fa-arrow-down-1-9"></i></div>
+                            <div class="pipe-details">
+                                <strong>Numerical Pipeline (Experience & Company Ratings)</strong>
+                                <span>Median Imputation + StandardScaler on min/max experience, review volume, and ratings.</span>
+                            </div>
+                        </div>
+                        <div class="pipe-step">
+                            <div class="pipe-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="pipe-details">
+                                <strong>Log-Target Transformation</strong>
+                                <span>Target transformed via <code>log1p(y)</code> to manage positive salary skewness; reversed with <code>expm1</code>.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developer Attribution Card -->
+            <div class="dev-attribution-card">
+                <div class="dev-avatar">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <div class="dev-details">
+                    <h3>Project Developed By: Suraksha</h3>
+                    <p class="dev-role">AIML Developer &bull; IPEC Solutions PVT LTD</p>
+                    <p class="dev-desc">
+                        Engineered for corporate recruitment strategy, salary benchmarking, and talent compensation analytics across the Indian job ecosystem.
+                    </p>
+                </div>
+                <div class="dev-badges">
+                    <span class="org-badge"><i class="fa-solid fa-award"></i> IPEC Solutions PVT LTD</span>
+                    <span class="tool-badge"><i class="fa-brands fa-python"></i> Scikit-Learn</span>
+                    <span class="tool-badge"><i class="fa-solid fa-bolt"></i> Flask API</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-brand">
+                    <i class="fa-solid fa-chart-line"></i> Indian Job Market Salary Predictor & Analytics
+                </div>
+                <p class="footer-text">
+                    Comprehensive compensation forecasting, dual offer comparison, and market intelligence platform built for Indian recruitment ecosystems.
+                </p>
+            </div>
+            <div class="footer-col text-right">
+                <p class="footer-credit">Developed by <strong>Suraksha</strong>, AIML Developer</p>
+                <p class="footer-org">IPEC Solutions PVT LTD &copy; 2026. All rights reserved.</p>
+                <p class="footer-note">Trained on cleaned Indian job market records. Predictions represent statistical market benchmarks.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

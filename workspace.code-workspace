@@ -1,0 +1,17 @@
+{
+    "folders": [
+        {
+            "name": "Indian Salary Predictor & Analytics",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "D:\\Users\\Asus Laptop\\anaconda3\\envs\\lux_env\\python.exe",
+        "python.terminal.activateEnvironment": true,
+        "files.exclude": {
+            "**/.git": true,
+            "**/.ipynb_checkpoints": true,
+            "**/__pycache__": true
+        }
+    }
+}
